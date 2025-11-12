@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mi Plan de Inglés - 4 Semanas</title>
+  <style>
+    /* Estilos limpios y responsivos */
+    :root{
+      --bg1:#f6f8fb; --accent:#667eea; --accent2:#764ba2; --muted:#666;
+      --card:#ffffff; --success:#28a745;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;background:linear-gradient(135deg,#667eea 0%, #764ba2 100%);color:#222}
+    .wrap{max-width:940px;margin:18px auto;padding:18px}
+    .app{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,0.25)}
+    header{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    h1{font-size:20px;color:var(--accent);margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+    .top-actions{margin-left:auto;display:flex;gap:8px}
+    button{cursor:pointer;border:0;padding:8px 12px;border-radius:10px}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--muted)}
+    .grid{display:grid;grid-template-columns:260px 1fr;gap:14px;margin-top:16px}
+    @media(max-width:860px){.grid{grid-template-columns:1fr}}
+    aside{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:12px}
+    nav.week-list{display:flex;flex-direction:column;gap:8px}
+    .week-btn{padding:10px;border-radius:10px;text-align:left;background:transparent;border:1px solid rgba(0,0,0,0.04)}
+    .week-btn.active{outline:2px solid var(--accent);background:linear-gradient(90deg, rgba(102,126,234,0.08), transparent)}
+    .days{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .day-pill{padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.03);cursor:pointer}
+    .day-pill.active{border:1px solid var(--accent)}
+    main{padding:12px;background:linear-gradient(180deg,#ffffff 0%, #fbfcff 100%);border-radius:12px}
+    .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .card{background:#fff;border-radius:10px;padding:12px;border:1px solid rgba(0,0,0,0.04)}
+    .stats{display:flex;gap:12px}
+    .stat{padding:10px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;min-width:100px;text-align:center}
+    .progress-bar{height:20px;background:#eee;border-radius:12px;overflow:hidden;margin-top:12px}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600}
+    #activities{margin-top:14px}
+    .day-card{background:#f8f9fb;border-radius:10px;padding:12px;margin-bottom:12px;border-left:6px solid var(--accent)}
+    .activity{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:10px;background:#fff;border:1px solid rgba(0,0,0,0.04);margin-bottom:10px}
+    .checkbox{width:28px;height:28px;border-radius:6px;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff}
+    .checkbox.checked{background:var(--accent);color:#fff}
+    .activity-content{flex:1}
+    .activity-time{font-weight:700;color:var(--accent2);font-size:13px}
+    .activity-desc{font-size:13px;color:var(--muted);margin-top:4px}
+    .prompt{background:#f0f4ff;padding:8px;border-radius:8px;margin-top:8px;font-size:13px;color:#123}
+    .copy{margin-left:auto}
+    .vocab{display:flex;gap:8px;margin-top:8px}
+    input.vocab-input{flex:1;padding:10px;border-radius:8px;border:1px solid #e6e6e6}
+    .vocab-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .chip{background:#eef7ef;padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,0.04);font-size:13px}
+    .controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    textarea{width:100%;min-height:80px;padding:10px;border-radius:8px;border:1px solid #eaeaea;margin-top:8px}
+    .small{font-size:13px;color:var(--muted)}
+    .hidden{display:none}
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:rgba(0,0,0,0.82);color:#fff;padding:10px 14px;border-radius:10px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="app" role="application" aria-label="Plan de Inglés 4 semanas">
+      <header>
+        <div>
+          <h1>🚀 Mi Plan de Inglés — 4 semanas</h1>
+          <p class="lead">Nivel A2-B1 • Marca tareas, guarda vocab, exporta/importa tu progreso</p>
+        </div>
+        <div class="top-actions">
+          <button id="exportBtn" class="btn-ghost">📤 Exportar</button>
+          <button id="importBtn" class="btn-ghost">📥 Importar</button>
+          <button id="resetBtn" class="btn-ghost">🔄 Reset</button>
+        </div>
+      </header>
+
+      <div class="grid" style="margin-top:14px">
+        <aside>
+          <div class="card">
+            <strong>Semanas</strong>
+            <nav class="week-list" id="weekList" aria-label="Selector de semanas"></nav>
+          </div>
+
+          <div style="margin-top:12px" class="card">
+            <strong>Días</strong>
+            <div class="days" id="daysContainer" aria-label="Días de la semana"></div>
+            <div style="margin-top:10px" class="small">Toca un día para ver sus actividades. Marca las casillas para guardar progreso.</div>
+          </div>
+
+          <div style="margin-top:12px" class="card">
+            <strong>Checklist rápida</strong>
+            <div id="quickChecklist" style="margin-top:8px"></div>
+          </div>
+        </aside>
+
+        <main>
+          <div class="meta">
+            <div style="flex:1">
+              <div class="stats">
+                <div class="stat">
+                  <div class="small">Tareas</div>
+                  <div id="tasksCompleted" style="font-size:20px;font-weight:700">0</div>
+                </div>
+                <div class="stat">
+                  <div class="small">Vocab aprendidas</div>
+                  <div id="vocabCount" style="font-size:20px;font-weight:700">0</div>
+                </div>
+              </div>
+              <div class="progress-bar" aria-hidden="true">
+                <div class="progress-fill" id="progressFill">0%</div>
+              </div>
+            </div>
+            <div style="min-width:220px">
+              <div class="card">
+                <div class="small">Buscar / Nota rápida</div>
+                <input id="searchInput" placeholder="Buscar actividad, prompt..." style="width:100%;padding:8px;border-radius:8px;border:1px solid #eaeaea;margin-top:8px" />
+                <button id="openNotes" class="btn-primary" style="width:100%;margin-top:8px">Abrir notas</button>
+              </div>
+            </div>
+          </div>
+
+          <section id="activities" aria-live="polite"></section>
+
+          <div class="card" style="margin-top:10px">
+            <strong>Palabras aprendidas</strong>
+            <div class="vocab">
+              <input id="vocabInput" class="vocab-input" placeholder="Añadir palabra (enter)" />
+              <button id="addVocab" class="btn-primary">Añadir</button>
+            </div>
+            <div class="vocab-list" id="vocabList" aria-live="polite"></div>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <strong>Nota / Texto para corregir</strong>
+            <textarea id="noteText" placeholder="Pega aquí tu texto (ej. 'My week in English')"></textarea>
+            <div class="controls">
+              <button id="saveNote" class="btn-primary">Guardar nota</button>
+              <button id="copyNote" class="btn-ghost">Copiar</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:10px">
+            <strong>Importar JSON</strong>
+            <textarea id="importArea" placeholder='Pega aquí JSON o usa Importar'></textarea>
+            <div class="controls">
+              <button id="loadJson" class="btn-ghost">Cargar JSON</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script>
+  /*****************************************************************
+   * Datos (base) del plan: puedes editar o ampliar fácilmente aquí
+   * He cargado las 4 semanas / días y prompts básicos (según tu plan).
+   *****************************************************************/
+  const weekData = {
+    1: { title: "SEMANA 1: FUNDAMENTOS Y RUTINA", subtitle:"Vida cotidiana / Present Simple", days:[
+        { name:"LUNES", activities:[
+          { time:"Mañana (10 min)", title:"20 frases esenciales - leer y grabar", prompt:"Give me 20 essential phrases for daily routines with pronunciation. Include: waking up, eating, working, and going to bed" },
+          { time:"Tarde (20 min)", title:"Video: 'A Day in My Life' - ver 2 veces; anotar 5 palabras", prompt:"Watch: 'A Day in My Life' (Easy English). Watch 2 times (with/without subtitles). Note 5 words and ask AI their use." },
+          { time:"Noche (20 min)", title:"Conversación: Mi rutina - escribir 7 oraciones", prompt:"Let's talk about my daily routine. Ask me questions and correct my mistakes. I'm A2-B1 level." }
+        ]},
+        { name:"MARTES", activities:[
+          { time:"Mañana (10 min)", title:"Repasa 20 frases y crea 3 oraciones" },
+          { time:"Tarde (20 min)", title:"Present Simple vs Present Continuous - ejercicios", prompt:"Teach me Present Simple vs Present Continuous with 5 exercises. A2-B1 level. Include answers." },
+          { time:"Noche (25 min)", title:"Lee artículo (News in Levels) y resume", prompt:"I read this article [paste text]. Ask me 5 comprehension questions and explain difficult words." }
+        ]},
+        { name:"MIÉRCOLES", activities:[
+          { time:"Mañana (10 min)", title:"Escucha '6 Minute English' (BBC) sin transcripción" },
+          { time:"Tarde (25 min)", title:"Con transcripción: marca palabras desconocidas", prompt:"Explain these words with example sentences: [your list]" },
+          { time:"Noche (20 min)", title:"Discute el podcast con IA", prompt:"Let's discuss what I heard in the podcast. The topic was [topic]. Ask me questions." }
+        ]},
+        { name:"JUEVES", activities:[
+          { time:"Mañana (15 min)", title:"10 preguntas comunes - practica respuestas", prompt:"Give me 10 common questions people ask when meeting someone. Then let's practice." },
+          { time:"Tarde (20 min)", title:"Shadowing - video 5 min; grabar" },
+          { time:"Noche (20 min)", title:"Roleplay: barista / pedir café", prompt:"Let's roleplay. You're a barista, I'm ordering coffee. Correct my English after we finish. Start!" }
+        ]},
+        { name:"VIERNES", activities:[
+          { time:"Mañana (10 min)", title:"Repaso semanal" },
+          { time:"Tarde (25 min)", title:"Escribe 150 palabras: 'My week in English'", prompt:"Correct this text. Explain mistakes and suggest better phrases: [your text]" },
+          { time:"Noche (20 min)", title:"Ejercicios según errores" , prompt:"Based on my text, give me 5 grammar exercises for my weak points" }
+        ]},
+        { name:"SÁBADO", activities:[
+          { time:"Flexible", title:"Flashcards con 70 palabras - ve serie 30 min" , prompt:"Quiz me on this week's vocabulary with fill-in-the-blank sentences" }
+        ]},
+        { name:"DOMINGO", activities:[
+          { time:"Flexible", title:"Inmersión libre (película/serie/juego/Reddit)", prompt:"Ask me 5 questions in English about my week. Then evaluate my progress and give me 3 tips for next week." }
+        ]}
+    ]},
+    2: { title: "SEMANA 2: PASADO Y EXPERIENCIAS", subtitle:"Past Simple / Storytelling", days:[
+      // Simplificado pero funcional — puedes editar
+      { name:"LUNES", activities:[ {time:"Mañana", title:"Past Simple: 15 verbos irregulares", prompt:"Teach me Past Simple with 15 common irregular verbs. Give me example sentences."} ]},
+      { name:"MARTES", activities:[ {time:"Mañana", title:"Story time: escribe 150 palabras", prompt:"I'll tell you a story about [event]. Stop me and correct mistakes as I write."} ]},
+      { name:"MIÉRCOLES", activities:[ {time:"Mañana", title:"Escucha entrevistas 5 min"} ]},
+      { name:"JUEVES", activities:[ {time:"Mañana", title:"Graba voice memo 2 min"} ]},
+      { name:"VIERNES", activities:[ {time:"Mañana", title:"Escribe mini-biografía 200 palabras", prompt:"Correct my biography. Make it sound more natural and suggest better connecting words."} ]},
+      { name:"SÁBADO", activities:[ {time:"Flexible", title:"Review: flashcards y podcast", prompt:"Create a story using these 20 words from this week: [list]. Then I'll try to retell it."} ]},
+      { name:"DOMINGO", activities:[ {time:"Flexible", title:"Media marathon", prompt:"This week I learned about past tenses. Test my knowledge with 10 questions mixing Present, Past, and Perfect."} ]}
+    ]},
+    3: { title: "SEMANA 3: FUTURO Y CONVERSACIÓN", subtitle:"Future tenses / Opinions", days:[
+      { name:"LUNES", activities:[ {time:"Mañana", title:"Will, going to, present continuous for future", prompt:"Teach me: will, going to, and present continuous for future. Give me 10 examples of each."} ]},
+      { name:"MARTES", activities:[ {time:"Mañana", title:"Phrases for opinions", prompt:"Give me 15 phrases for expressing opinions, agreeing, and disagreeing politely."} ]},
+      { name:"MIÉRCOLES", activities:[ {time:"Mañana", title:"Modals for predictions", prompt:"Teach me modal verbs for predictions: might, may, could, will probably. Give examples."} ]},
+      { name:"JUEVES", activities:[ {time:"Mañana", title:"Conversation starters", prompt:"Give me 10 conversation starters for small talk. Then let's practice each one."} ]},
+      { name:"VIERNES", activities:[ {time:"Tarde", title:"Opinion essay 250 words", prompt:"Correct my essay. Focus on: argument structure, opinion phrases, and grammar. Suggest improvements."} ]},
+      { name:"SÁBADO", activities:[ {time:"Flexible", title:"Conversation marathon", prompt:"Let's do 30-minute conversation practice. You pick 5 random topics."} ]},
+      { name:"DOMINGO", activities:[ {time:"Flexible", title:"Cultural content / documentary", prompt:"This week was about future and opinions. Have a conversation with me covering all tenses: past, present, future. Evaluate my progress."} ]}
+    ]},
+    4: { title: "SEMANA 4: INTEGRACIÓN Y FLUIDEZ", subtitle:"Real-world practice", days:[
+      { name:"LUNES", activities:[ {time:"Mañana", title:"Phrases for restaurant, directions, shopping", prompt:"Give me useful phrases for: ordering food, asking directions, making appointments, shopping."} ]},
+      { name:"MARTES", activities:[ {time:"Mañana", title:"Job interview prep", prompt:"Give me 15 common job interview questions in English."} ]},
+      { name:"MIÉRCOLES", activities:[ {time:"Mañana", title:"Phone conversations practice", prompt:"Teach me phone conversation phrases: answering, asking for someone, leaving messages, ending calls."} ]},
+      { name:"JUEVES", activities:[ {time:"Mañana", title:"Presentation skills - prepare 5-min talk", prompt:"Give me a presentation structure for introducing [topic]. Include useful phrases."} ]},
+      { name:"VIERNES", activities:[ {time:"Tarde", title:"Final writing challenge 400 words", prompt:"Correct this comprehensive text. Compare it with my Week 1 writing. Show my improvement and remaining challenges."} ]},
+      { name:"SÁBADO", activities:[ {time:"Flexible", title:"Final evaluation test", prompt:"Give me a comprehensive English test covering grammar, vocab, reading and conversation."} ]},
+      { name:"DOMINGO", activities:[ {time:"Flexible", title:"Celebration & planning future", prompt:"Based on my 4-week journey, create a personalized 3-month plan to reach B2 level."} ]}
+    ]}
+  };
+
+  /*************************************************************
+   * Estado y persistencia
+   *************************************************************/
+  const STORAGE_KEY = 'plan-ingles-v2';
+  const STORAGE_NOTES = 'plan-ingles-v2-notes';
+  const STORAGE_VOCAB = 'plan-ingles-v2-vocab';
+  let state = {
+    week:1, dayIndex:0, checks: {}, notes:{}, vocab: []
+  };
+
+  // cargar si hay guardado
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) state = Object.assign(state, JSON.parse(raw));
+    const nRaw = localStorage.getItem(STORAGE_NOTES);
+    if(nRaw) state.notes = JSON.parse(nRaw);
+    const vRaw = localStorage.getItem(STORAGE_VOCAB);
+    if(vRaw) state.vocab = JSON.parse(vRaw);
+  } catch(e){ console.warn('No local data or JSON parse error', e) }
+
+  /*************************************************************
+   * Helpers UI
+   *************************************************************/
+  const el = id => document.getElementById(id);
+  const toast = (t) => {
+    const box = el('toast'); box.textContent = t; box.classList.remove('hidden');
+    setTimeout(()=>box.classList.add('hidden'), 2000);
+  };
+
+  function saveState(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({week: state.week, dayIndex: state.dayIndex, checks: state.checks}));
+    localStorage.setItem(STORAGE_NOTES, JSON.stringify(state.notes));
+    localStorage.setItem(STORAGE_VOCAB, JSON.stringify(state.vocab));
+    renderStats();
+  }
+
+  /*************************************************************
+   * Renderers
+   *************************************************************/
+  function renderWeeks(){
+    const container = document.getElementById('weekList');
+    container.innerHTML='';
+    Object.keys(weekData).forEach(k=>{
+      const w = weekData[k];
+      const btn = document.createElement('button');
+      btn.className = 'week-btn' + (Number(k) === state.week ? ' active' : '');
+      btn.textContent = `${k} — ${w.title}`;
+      btn.onclick = ()=>{ state.week = Number(k); state.dayIndex = 0; saveState(); renderAll(); };
+      container.appendChild(btn);
+    });
+  }
+
+  function renderDays(){
+    const daysCont = document.getElementById('daysContainer');
+    daysCont.innerHTML='';
+    const days = weekData[state.week].days;
+    days.forEach((d,i)=>{
+      const pill = document.createElement('div');
+      pill.className = 'day-pill' + (i===state.dayIndex ? ' active' : '');
+      pill.textContent = d.name;
+      pill.onclick = ()=>{ state.dayIndex = i; saveState(); renderAll(); };
+      daysCont.appendChild(pill);
+    });
+  }
+
+  function renderChecklist(){
+    const qc = document.getElementById('quickChecklist');
+    qc.innerHTML='';
+    const items = ["Mañana (10-15 min)","Tarde (20-30 min)","Noche (20-30 min)","Palabras nuevas anotadas","Notas de errores comunes"];
+    items.forEach((it, idx)=>{
+      const id = `q-${state.week}-${state.dayIndex}-${idx}`;
+      const row = document.createElement('div');
+      row.style.display='flex'; row.style.alignItems='center'; row.style.gap='8px'; row.style.marginTop='8px';
+      const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!state.checks[id];
+      cb.onchange = ()=>{ state.checks[id] = cb.checked; saveState(); renderStats(); renderActivities(); };
+      const lbl = document.createElement('label'); lbl.textContent = it;
+      row.appendChild(cb); row.appendChild(lbl);
+      qc.appendChild(row);
+    });
+  }
+
+  function renderActivities(filter=''){
+    const container = document.getElementById('activities');
+    container.innerHTML='';
+    const w = weekData[state.week];
+    const d = w.days[state.dayIndex];
+    if(!d) return;
+    // header
+    const header = document.createElement('div'); header.className='day-card';
+    header.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div>
+      <div style="font-weight:800;color:var(--accent)">${w.title}</div>
+      <div class="small">${w.subtitle} • ${d.name}</div>
+    </div>
+    <div style="text-align:right">
+      <div class="small">Día:</div>
+      <div style="font-weight:800">${d.name}</div>
+    </div></div>`;
+    container.appendChild(header);
+
+    // activities
+    d.activities.forEach((a, idx)=>{
+      const text = `${a.time} ${a.title} ${a.prompt || ''}`.toLowerCase();
+      if(filter && !text.includes(filter.toLowerCase())) return;
+      const activity = document.createElement('div'); activity.className='activity';
+      // checkbox
+      const id = `t-${state.week}-${state.dayIndex}-${idx}`;
+      const cb = document.createElement('div'); cb.className='checkbox' + (state.checks[id] ? ' checked' : '');
+      cb.onclick = ()=>{
+        state.checks[id] = !state.checks[id];
+        saveState();
+        renderActivities(filter);
+      };
+      activity.appendChild(cb);
+      // content
+      const content = document.createElement('div'); content.className='activity-content';
+      const t0 = document.createElement('div'); t0.className='activity-time'; t0.textContent = a.time;
+      const t1 = document.createElement('div'); t1.style.fontWeight=700; t1.textContent = a.title;
+      content.appendChild(t0); content.appendChild(t1);
+      if(a.desc){ const dsc = document.createElement('div'); dsc.className='activity-desc'; dsc.textContent = a.desc; content.appendChild(dsc); }
+      if(a.prompt){
+        const p = document.createElement('div'); p.className='prompt'; p.textContent = a.prompt;
+        const row = document.createElement('div'); row.style.display='flex'; row.style.marginTop='8px'; row.style.gap='8px';
+        const cp = document.createElement('button'); cp.className='btn-ghost'; cp.textContent='Copiar prompt';
+        cp.onclick = ()=>{ navigator.clipboard?.writeText(a.prompt).then(()=>toast('Prompt copiado')); };
+        row.appendChild(cp);
+        p.appendChild(row);
+        content.appendChild(p);
+      }
+      // note quick save
+      const noteKey = `note-${state.week}-${state.dayIndex}-${idx}`;
+      const noteBtn = document.createElement('button'); noteBtn.className='btn-ghost'; noteBtn.style.marginLeft='8px'; noteBtn.textContent='Nota rápida';
+      noteBtn.onclick = ()=>{
+        const val = prompt('Nota rápida para esta actividad', state.notes[noteKey]||'');
+        if(val!==null){ state.notes[noteKey]=val; saveState(); toast('Nota guardada'); }
+      };
+      content.appendChild(noteBtn);
+
+      activity.appendChild(content);
+      container.appendChild(activity);
+    });
+
+    // if no activities shown:
+    if(container.querySelectorAll('.activity').length===0){
+      const n = document.createElement('div'); n.className='card'; n.style.marginTop='8px'; n.textContent = 'No hay actividades que coincidan con la búsqueda o este día aún no tiene actividades.';
+      container.appendChild(n);
+    }
+  }
+
+  function renderVocab(){
+    const list = document.getElementById('vocabList'); list.innerHTML='';
+    state.vocab.forEach((v,i)=>{
+      const chip = document.createElement('div'); chip.className='chip';
+      chip.textContent = v;
+      const x = document.createElement('button'); x.className='btn-ghost'; x.textContent='✕'; x.style.marginLeft='8px';
+      x.onclick = ()=>{ state.vocab.splice(i,1); saveState(); renderVocab(); };
+      chip.appendChild(x);
+      list.appendChild(chip);
+    });
+    el('vocabCount').textContent = state.vocab.length;
+  }
+
+  function renderStats(){
+    // tasks completed for all checks true count
+    const totalChecks = Object.values(state.checks).filter(Boolean).length;
+    el('tasksCompleted').textContent = totalChecks;
+    // progress: percent of checks for current week
+    // compute total possible checks in current week: week days * activities per day + quick checklist (approx)
+    const w = weekData[state.week];
+    let possible = 0, done = 0;
+    w.days.forEach((d,di)=>{
+      possible += d.activities.length;
+      d.activities.forEach((a,ai)=>{
+        const id = `t-${state.week}-${di}-${ai}`;
+        if(state.checks[id]) done++;
+      });
+      // quick 5 checks
+      for(let i=0;i<5;i++){
+        possible += 1;
+        const qid = `q-${state.week}-${di}-${i}`;
+        if(state.checks[qid]) done++;
+      }
+    });
+    const percent = possible ? Math.round((done/possible)*100) : 0;
+    const fill = el('progressFill'); fill.style.width = percent + '%'; fill.textContent = percent + '%';
+  }
+
+  /*************************************************************
+   * Actions: vocab, notes, export/import, reset
+   *************************************************************/
+  document.getElementById('addVocab').addEventListener('click', ()=>{
+    const v = document.getElementById('vocabInput').value.trim();
+    if(!v) return toast('Escribe una palabra');
+    state.vocab.push(v);
+    document.getElementById('vocabInput').value='';
+    saveState(); renderVocab(); toast('Palabra añadida');
+  });
+  document.getElementById('vocabInput').addEventListener('keypress', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); document.getElementById('addVocab').click(); } });
+
+  document.getElementById('saveNote').addEventListener('click', ()=>{
+    const val = document.getElementById('noteText').value.trim();
+    const key = `note-day-${state.week}-${state.dayIndex}`;
+    if(!val) return toast('Nota vacía');
+    state.notes[key] = val;
+    saveState(); toast('Nota guardada');
+  });
+  document.getElementById('copyNote').addEventListener('click', ()=>{
+    const t = document.getElementById('noteText').value;
+    if(!t) return toast('Nada que copiar');
+    navigator.clipboard?.writeText(t).then(()=>toast('Texto copiado'));
+  });
+
+  document.getElementById('exportBtn').addEventListener('click', ()=>{
+    const data = { meta: { exportedAt: new Date().toISOString() }, state: state };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'plan-ingles-progreso.json'; a.click();
+    URL.revokeObjectURL(url);
+    toast('Exportado');
+  });
+
+  document.getElementById('importBtn').addEventListener('click', ()=>{
+    const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='application/json';
+    fileInput.onchange = (e)=>{
+      const f = e.target.files[0]; if(!f) return;
+      const reader = new FileReader();
+      reader.onload = ev=>{
+        try{
+          const obj = JSON.parse(ev.target.result);
+          if(obj.state){ state = Object.assign(state, obj.state); saveState(); renderAll(); toast('Importado JSON'); }
+          else toast('JSON sin formato válido');
+        }catch(err){ toast('Error al leer JSON'); }
+      };
+      reader.readAsText(f);
+    };
+    fileInput.click();
+  });
+
+  document.getElementById('loadJson').addEventListener('click', ()=>{
+    const txt = document.getElementById('importArea').value.trim();
+    if(!txt) return toast('Pega JSON');
+    try{
+      const obj = JSON.parse(txt);
+      if(obj.state){ state = Object.assign(state, obj.state); saveState(); renderAll(); toast('Importado desde área'); }
+      else toast('JSON sin formato válido');
+    }catch(err){ toast('JSON inválido'); }
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    if(!confirm('Resetear todo el progreso y vocab?')) return;
+    state = { week:1, dayIndex:0, checks:{}, notes:{}, vocab:[] };
+    saveState(); renderAll(); toast('Reseteado');
+  });
+
+  // search
+  document.getElementById('searchInput').addEventListener('input', (e)=>{ renderActivities(e.target.value) });
+
+  // open notes fill
+  document.getElementById('openNotes').addEventListener('click', ()=>{
+    const key = `note-day-${state.week}-${state.dayIndex}`;
+    document.getElementById('noteText').value = state.notes[key] || '';
+    toast('Nota cargada (si existe)');
+  });
+
+  // copy functionality for prompts uses navigator.clipboard inside renderActivities
+
+  /*************************************************************
+   * Inicialización
+   *************************************************************/
+  function renderAll(){
+    renderWeeks();
+    renderDays();
+    renderChecklist();
+    renderActivities();
+    renderVocab();
+    renderStats();
+    // load note for current day if exists
+    const noteKey = `note-day-${state.week}-${state.dayIndex}`;
+    document.getElementById('noteText').value = state.notes[noteKey] || '';
+  }
+
+  renderAll();
+
+  // autosave interval
+  setInterval(()=>saveState(), 5000);
+  </script>
+</body>
+</html>
