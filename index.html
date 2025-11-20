@@ -1,510 +1,1131 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mi Plan de Inglés - 4 Semanas</title>
-  <style>
-    /* Estilos limpios y responsivos */
-    :root{
-      --bg1:#f6f8fb; --accent:#667eea; --accent2:#764ba2; --muted:#666;
-      --card:#ffffff; --success:#28a745;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;background:linear-gradient(135deg,#667eea 0%, #764ba2 100%);color:#222}
-    .wrap{max-width:940px;margin:18px auto;padding:18px}
-    .app{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,0.25)}
-    header{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    h1{font-size:20px;color:var(--accent);margin:0}
-    p.lead{margin:0;color:var(--muted);font-size:13px}
-    .top-actions{margin-left:auto;display:flex;gap:8px}
-    button{cursor:pointer;border:0;padding:8px 12px;border-radius:10px}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--muted)}
-    .grid{display:grid;grid-template-columns:260px 1fr;gap:14px;margin-top:16px}
-    @media(max-width:860px){.grid{grid-template-columns:1fr}}
-    aside{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:12px}
-    nav.week-list{display:flex;flex-direction:column;gap:8px}
-    .week-btn{padding:10px;border-radius:10px;text-align:left;background:transparent;border:1px solid rgba(0,0,0,0.04)}
-    .week-btn.active{outline:2px solid var(--accent);background:linear-gradient(90deg, rgba(102,126,234,0.08), transparent)}
-    .days{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .day-pill{padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.03);cursor:pointer}
-    .day-pill.active{border:1px solid var(--accent)}
-    main{padding:12px;background:linear-gradient(180deg,#ffffff 0%, #fbfcff 100%);border-radius:12px}
-    .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .card{background:#fff;border-radius:10px;padding:12px;border:1px solid rgba(0,0,0,0.04)}
-    .stats{display:flex;gap:12px}
-    .stat{padding:10px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;min-width:100px;text-align:center}
-    .progress-bar{height:20px;background:#eee;border-radius:12px;overflow:hidden;margin-top:12px}
-    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600}
-    #activities{margin-top:14px}
-    .day-card{background:#f8f9fb;border-radius:10px;padding:12px;margin-bottom:12px;border-left:6px solid var(--accent)}
-    .activity{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:10px;background:#fff;border:1px solid rgba(0,0,0,0.04);margin-bottom:10px}
-    .checkbox{width:28px;height:28px;border-radius:6px;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff}
-    .checkbox.checked{background:var(--accent);color:#fff}
-    .activity-content{flex:1}
-    .activity-time{font-weight:700;color:var(--accent2);font-size:13px}
-    .activity-desc{font-size:13px;color:var(--muted);margin-top:4px}
-    .prompt{background:#f0f4ff;padding:8px;border-radius:8px;margin-top:8px;font-size:13px;color:#123}
-    .copy{margin-left:auto}
-    .vocab{display:flex;gap:8px;margin-top:8px}
-    input.vocab-input{flex:1;padding:10px;border-radius:8px;border:1px solid #e6e6e6}
-    .vocab-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-    .chip{background:#eef7ef;padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,0.04);font-size:13px}
-    .controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-    textarea{width:100%;min-height:80px;padding:10px;border-radius:8px;border:1px solid #eaeaea;margin-top:8px}
-    .small{font-size:13px;color:var(--muted)}
-    .hidden{display:none}
-    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:rgba(0,0,0,0.82);color:#fff;padding:10px 14px;border-radius:10px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Plan de Inglés - 4 Semanas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .week-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .week-btn {
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .week-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .day-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .day-title {
+            font-size: 20px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .day-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .activity {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .activity-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .checkbox.checked {
+            background: #667eea;
+        }
+        
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-time {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 5px;
+        }
+        
+        .activity-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .prompt-box {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #555;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 8px;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: #764ba2;
+        }
+        
+        .vocab-input {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .vocab-input input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .add-vocab-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .vocab-count {
+            background: #28a745;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="app" role="application" aria-label="Plan de Inglés 4 semanas">
-      <header>
-        <div>
-          <h1>🚀 Mi Plan de Inglés — 4 semanas</h1>
-          <p class="lead">Nivel A2-B1 • Marca tareas, guarda vocab, exporta/importa tu progreso</p>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Mi Plan de Inglés</h1>
+            <p>Plan Acelerado de 4 Semanas | Nivel A2-B1</p>
         </div>
-        <div class="top-actions">
-          <button id="exportBtn" class="btn-ghost">📤 Exportar</button>
-          <button id="importBtn" class="btn-ghost">📥 Importar</button>
-          <button id="resetBtn" class="btn-ghost">🔄 Reset</button>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="tasksCompleted">0</h3>
+                <p>Tareas Completadas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="vocabLearned">0</h3>
+                <p>Palabras Aprendidas</p>
+            </div>
         </div>
-      </header>
-
-      <div class="grid" style="margin-top:14px">
-        <aside>
-          <div class="card">
-            <strong>Semanas</strong>
-            <nav class="week-list" id="weekList" aria-label="Selector de semanas"></nav>
-          </div>
-
-          <div style="margin-top:12px" class="card">
-            <strong>Días</strong>
-            <div class="days" id="daysContainer" aria-label="Días de la semana"></div>
-            <div style="margin-top:10px" class="small">Toca un día para ver sus actividades. Marca las casillas para guardar progreso.</div>
-          </div>
-
-          <div style="margin-top:12px" class="card">
-            <strong>Checklist rápida</strong>
-            <div id="quickChecklist" style="margin-top:8px"></div>
-          </div>
-        </aside>
-
-        <main>
-          <div class="meta">
-            <div style="flex:1">
-              <div class="stats">
-                <div class="stat">
-                  <div class="small">Tareas</div>
-                  <div id="tasksCompleted" style="font-size:20px;font-weight:700">0</div>
-                </div>
-                <div class="stat">
-                  <div class="small">Vocab aprendidas</div>
-                  <div id="vocabCount" style="font-size:20px;font-weight:700">0</div>
-                </div>
-              </div>
-              <div class="progress-bar" aria-hidden="true">
-                <div class="progress-fill" id="progressFill">0%</div>
-              </div>
-            </div>
-            <div style="min-width:220px">
-              <div class="card">
-                <div class="small">Buscar / Nota rápida</div>
-                <input id="searchInput" placeholder="Buscar actividad, prompt..." style="width:100%;padding:8px;border-radius:8px;border:1px solid #eaeaea;margin-top:8px" />
-                <button id="openNotes" class="btn-primary" style="width:100%;margin-top:8px">Abrir notas</button>
-              </div>
-            </div>
-          </div>
-
-          <section id="activities" aria-live="polite"></section>
-
-          <div class="card" style="margin-top:10px">
-            <strong>Palabras aprendidas</strong>
-            <div class="vocab">
-              <input id="vocabInput" class="vocab-input" placeholder="Añadir palabra (enter)" />
-              <button id="addVocab" class="btn-primary">Añadir</button>
-            </div>
-            <div class="vocab-list" id="vocabList" aria-live="polite"></div>
-          </div>
-
-          <div class="card" style="margin-top:10px">
-            <strong>Nota / Texto para corregir</strong>
-            <textarea id="noteText" placeholder="Pega aquí tu texto (ej. 'My week in English')"></textarea>
-            <div class="controls">
-              <button id="saveNote" class="btn-primary">Guardar nota</button>
-              <button id="copyNote" class="btn-ghost">Copiar</button>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:10px">
-            <strong>Importar JSON</strong>
-            <textarea id="importArea" placeholder='Pega aquí JSON o usa Importar'></textarea>
-            <div class="controls">
-              <button id="loadJson" class="btn-ghost">Cargar JSON</button>
-            </div>
-          </div>
-        </main>
-      </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar">0%</div>
+        </div>
+        
+        <div class="week-selector" id="weekSelector"></div>
+        
+        <div id="daysList"></div>
+        
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="resetProgress()">🔄 Resetear</button>
+            <button class="btn btn-primary" onclick="exportProgress()">📤 Exportar</button>
+        </div>
     </div>
-  </div>
 
-  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script>
+        const weekData = {
+            1: {
+                title: "FUNDAMENTOS Y RUTINA",
+                subtitle: "Vida Cotidiana y Presente Simple",
+                days: [
+                    {
+                        day: "LUNES",
+                        theme: "Día de Arranque",
+                        vocabGoal: 20,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Obtén 20 frases esenciales de rutinas diarias",
+                                prompt: "Give me 20 essential phrases for daily routines with pronunciation. Include: waking up, eating, working, and going to bed"
+                            },
+                            {
+                                time: "Tarde (20 min)",
+                                desc: "Video: 'A Day in My Life' - Easy English. Ver 2 veces (con/sin subs). Anotar 5 palabras nuevas",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Conversación sobre tu rutina diaria. Escribe 7 oraciones sobre tu día",
+                                prompt: "Let's talk about my daily routine. Ask me questions and correct my mistakes. I'm A2-B1 level."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MARTES",
+                        theme: "Grammar Focus",
+                        vocabGoal: 15,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Repasa las 20 frases de ayer. Crea 3 oraciones nuevas",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (20 min)",
+                                desc: "Aprende Present Simple vs Present Continuous con ejercicios",
+                                prompt: "Teach me Present Simple vs Present Continuous with 5 exercises. A2-B1 level. Include answers."
+                            },
+                            {
+                                time: "Noche (25 min)",
+                                desc: "Lee artículo en News in Levels (Level 2). Escribe resumen de 5 líneas",
+                                prompt: "I read this article [pega texto]. Ask me 5 comprehension questions and explain difficult words."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MIÉRCOLES",
+                        theme: "Listening Intensive",
+                        vocabGoal: 10,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Escucha podcast '6 Minute English' BBC (5 min) - solo audio",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Escucha MISMO podcast con transcripción. Marca 10 palabras desconocidas",
+                                prompt: "Explain these words with example sentences: [tu lista]"
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Discute el tema del podcast",
+                                prompt: "Let's discuss what I heard in the podcast. The topic was [tema]. Ask me questions."
+                            }
+                        ]
+                    },
+                    {
+                        day: "JUEVES",
+                        theme: "Speaking Practice",
+                        vocabGoal: 15,
+                        activities: [
+                            {
+                                time: "Mañana (15 min)",
+                                desc: "Practica 10 preguntas comunes al conocer gente. Responde en voz alta",
+                                prompt: "Give me 10 common questions people ask when meeting someone. Then let's practice."
+                            },
+                            {
+                                time: "Tarde (20 min)",
+                                desc: "Shadowing: Video de YouTube 5 min. Repite exactamente lo que dice",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Roleplay: ordenar café, pedir direcciones, hacer citas",
+                                prompt: "Let's roleplay. You're a barista, I'm ordering coffee. Correct my English after we finish. Start!"
+                            }
+                        ]
+                    },
+                    {
+                        day: "VIERNES",
+                        theme: "Writing Day",
+                        vocabGoal: 10,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Repaso semanal: Lee todas tus notas de la semana",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Escribe 150 palabras: 'My week in English'. Usa 10 palabras nuevas",
+                                prompt: "Correct this text. Explain mistakes and suggest better phrases: [tu texto]"
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Ejercicios de gramática basados en tus puntos débiles",
+                                prompt: "Based on my text, give me 5 grammar exercises for my weak points"
+                            }
+                        ]
+                    },
+                    {
+                        day: "SÁBADO",
+                        theme: "Review & Fun",
+                        vocabGoal: 0,
+                        activities: [
+                            {
+                                time: "Flexible (30-60 min)",
+                                desc: "Crea flashcards con 70 palabras de la semana. Ve serie 30 min con subs en inglés",
+                                prompt: "Quiz me on this week's vocabulary with fill-in-the-blank sentences"
+                            }
+                        ]
+                    },
+                    {
+                        day: "DOMINGO",
+                        theme: "Inmersión Libre",
+                        vocabGoal: 0,
+                        activities: [
+                            {
+                                time: "Flexible (30-90 min)",
+                                desc: "Consume contenido que DISFRUTES en inglés: películas, juegos, lectura",
+                                prompt: "Ask me 5 questions in English about my week. Then evaluate my progress and give me 3 tips for next week."
+                            }
+                        ]
+                    }
+                ]
+            },
+            2: {
+                title: "PASADO Y EXPERIENCIAS",
+                subtitle: "Past Simple, Storytelling",
+                days: [
+                    {
+                        day: "LUNES",
+                        theme: "Past Tense Introduction",
+                        vocabGoal: 35,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Aprende Past Simple con 15 verbos irregulares comunes",
+                                prompt: "Teach me Past Simple with 15 common irregular verbs. Give me example sentences."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Video: testimonios sobre mejores/peores experiencias. Anota verbos en pasado",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Habla sobre tu infancia. Cuenta 3 memorias",
+                                prompt: "Let's talk about my childhood. Ask me questions in Past Simple. Correct my answers."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MARTES",
+                        theme: "Story Time",
+                        vocabGoal: 15,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Lee historia corta en inglés. Subraya verbos en pasado",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Escribe 150 palabras sobre algo que te pasó",
+                                prompt: "I'll tell you a story about [evento]. Stop me and correct mistakes as I write."
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Practica iniciar historias con diferentes frases",
+                                prompt: "Give me 5 sentence starters for telling stories. Then ask me to complete them about my experiences."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MIÉRCOLES",
+                        theme: "Listening: Interviews",
+                        vocabGoal: 12,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Busca entrevista en inglés. Escucha 5 min sin subtítulos",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Misma entrevista con subtítulos. Anota 10 frases útiles",
+                                prompt: "These are 10 phrases from the interview [lista]. Explain them and when to use them."
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Roleplay: entrevista de trabajo sobre tu pasado",
+                                prompt: "Interview me in English. Ask about my past experiences, education, and hobbies. Give feedback after."
+                            }
+                        ]
+                    },
+                    {
+                        day: "JUEVES",
+                        theme: "Speaking: Storytelling",
+                        vocabGoal: 10,
+                        activities: [
+                            {
+                                time: "Mañana (15 min)",
+                                desc: "Graba voice memo 2 min contando anécdota. Identifica 3 errores",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (20 min)",
+                                desc: "Pide corrección de errores y practica versiones correctas",
+                                prompt: "I recorded myself. These are my mistakes: [lista]. Explain them and give me correct versions."
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Juego Story Chain: construyan historia juntos",
+                                prompt: "Let's play 'Story Chain'. I start a sentence, you continue, I continue, etc. Correct me at the end."
+                            }
+                        ]
+                    },
+                    {
+                        day: "VIERNES",
+                        theme: "Writing: Biography",
+                        vocabGoal: 10,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Lee biografía corta en inglés. Nota estilo y tiempos verbales",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Escribe tu mini biografía (200 palabras)",
+                                prompt: "Correct my biography. Make it sound more natural and suggest better connecting words."
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Ejercicios Past Simple vs Present Perfect",
+                                prompt: "Give me 5 exercises on Past Simple vs Present Perfect"
+                            }
+                        ]
+                    },
+                    {
+                        day: "SÁBADO",
+                        theme: "Review Week 2",
+                        vocabGoal: 0,
+                        activities: [
+                            {
+                                time: "Flexible (30-60 min)",
+                                desc: "Flashcards 67 palabras. Escucha podcast sobre historia/biografía",
+                                prompt: "Create a story using these 20 words from this week: [lista]. Then I'll try to retell it."
+                            }
+                        ]
+                    },
+                    {
+                        day: "DOMINGO",
+                        theme: "Media Marathon",
+                        vocabGoal: 0,
+                        activities: [
+                            {
+                                time: "Flexible (60-120 min)",
+                                desc: "2 episodios serie, lee Reddit, escucha música en inglés",
+                                prompt: "This week I learned about past tenses. Test my knowledge with 10 questions mixing Present, Past, and Perfect."
+                            }
+                        ]
+                    }
+                ]
+            },
+            3: {
+                title: "FUTURO Y CONVERSACIÓN",
+                subtitle: "Future Tenses, Expressing Opinions",
+                days: [
+                    {
+                        day: "LUNES",
+                        theme: "Future Forms",
+                        vocabGoal: 20,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Aprende: will, going to, present continuous para futuro",
+                                prompt: "Teach me: will, going to, and present continuous for future. Give me 10 examples of each."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Video: vlogs sobre planes 2025. Identifica formas de futuro",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Habla de tus planes: mañana, próxima semana, próximo año",
+                                prompt: "Ask me about my plans: tomorrow, next week, next year. Correct my future tenses."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MARTES",
+                        theme: "Opinions & Debates",
+                        vocabGoal: 15,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Aprende 15 frases para expresar opiniones y estar de acuerdo/en desacuerdo",
+                                prompt: "Give me 15 phrases for expressing opinions, agreeing, and disagreeing politely."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Lee artículo de opinión. Identifica frases que usa el autor",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Debate sobre tema controversial (redes sociales, trabajo remoto, IA)",
+                                prompt: "Let's debate: [tema]. I'll give my opinion, you challenge me. Use A2-B1 level."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MIÉRCOLES",
+                        theme: "Predictions & Possibilities",
+                        vocabGoal: 12,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Modales para predicciones: might, may, could, will probably",
+                                prompt: "Teach me modal verbs for predictions: might, may, could, will probably. Give examples."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Podcast sobre tecnología/futuro. Anota predicciones",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Discute futuro de tu área de interés",
+                                prompt: "Let's talk about the future of [tu interés]. Ask me what I think will happen. Correct my predictions."
+                            }
+                        ]
+                    },
+                    {
+                        day: "JUEVES",
+                        theme: "Real Conversation Practice",
+                        vocabGoal: 15,
+                        activities: [
+                            {
+                                time: "Mañana (15 min)",
+                                desc: "10 conversation starters para small talk",
+                                prompt: "Give me 10 conversation starters for small talk. Then let's practice each one."
+                            },
+                            {
+                                time: "Tarde (20 min)",
+                                desc: "Video: conversaciones reales en la calle. Pausa y responde tú",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (25 min)",
+                                desc: "Conversación de 15 minutos sobre temas aleatorios",
+                                prompt: "Let's have a 15-minute conversation. Pick random topics. Speak naturally. Correct me only at the end."
+                            }
+                        ]
+                    },
+                    {
+                        day: "VIERNES",
+                        theme: "Writing: Opinion Essay",
+                        vocabGoal: 10,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Lee ensayo de opinión corto. Nota estructura",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (30 min)",
+                                desc: "Escribe ensayo de opinión 250 palabras sobre IA o tema que elijas",
+                                prompt: "Correct my essay. Focus on: argument structure, opinion phrases, and grammar. Suggest improvements."
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Reescribe párrafos débiles y compara versiones",
+                                prompt: ""
+                            }
+                        ]
+                    },
+                    {
+                        day: "SÁBADO",
+                        theme: "Conversation Marathon",
+                        vocabGoal: 0,
+                        activities: [
+                            {
+                                time: "Flexible (45-75 min)",
+                                desc: "Conversación de 30 min sobre 5 temas aleatorios",
+                                prompt: "Let's do 30-minute conversation practice. You pick 5 random topics. I'll talk about each for 5 minutes. Give feedback after."
+                            }
+                        ]
+                    },
+                    {
+                        day: "DOMINGO",
+                        theme: "Cultural Content",
+                        vocabGoal: 15,
+                        activities: [
+                            {
+                                time: "Flexible (60-90 min)",
+                                desc: "Documental en inglés. Pausa cada 10 min y resume en voz alta",
+                                prompt: "This week was about future and opinions. Have a conversation with me covering all tenses: past, present, future. Evaluate my progress."
+                            }
+                        ]
+                    }
+                ]
+            },
+            4: {
+                title: "INTEGRACIÓN Y FLUIDEZ",
+                subtitle: "Mixed Skills, Real-World Practice",
+                days: [
+                    {
+                        day: "LUNES",
+                        theme: "Real-World Scenarios",
+                        vocabGoal: 25,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Frases útiles para: restaurante, direcciones, citas, compras",
+                                prompt: "Give me useful phrases for: ordering food, asking directions, making appointments, shopping."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Videos de situaciones reales. Anota frases útiles",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Roleplay 4 escenarios. Practica ambos roles",
+                                prompt: "Let's roleplay 4 scenarios: restaurant, store, bank, doctor. Switch roles halfway."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MARTES",
+                        theme: "Job Interview Prep",
+                        vocabGoal: 15,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "15 preguntas comunes de entrevistas de trabajo",
+                                prompt: "Give me 15 common job interview questions in English."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Prepara respuestas a 5 preguntas. Escribe 3-4 oraciones cada una",
+                                prompt: "Correct my interview answers. Make them sound professional."
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Entrevista de trabajo simulada para tu campo",
+                                prompt: "Interview me for a [tu campo] position. Ask tough questions. Give feedback on my answers."
+                            }
+                        ]
+                    },
+                    {
+                        day: "MIÉRCOLES",
+                        theme: "Phone Conversations",
+                        vocabGoal: 10,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Frases para conversaciones telefónicas",
+                                prompt: "Teach me phone conversation phrases: answering, asking for someone, leaving messages, ending calls."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Ejemplos de llamadas telefónicas en YouTube",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Practica llamadas: cita, queja servicio, llamar amigo",
+                                prompt: "Let's practice phone calls. Scenarios: booking appointment, customer service complaint, calling a friend. You start each call."
+                            }
+                        ]
+                    },
+                    {
+                        day: "JUEVES",
+                        theme: "Presentation Skills",
+                        vocabGoal: 12,
+                        activities: [
+                            {
+                                time: "Mañana (15 min)",
+                                desc: "Estructura para presentación sobre tema que dominas",
+                                prompt: "Give me a presentation structure for introducing [tema que dominas]. Include useful phrases."
+                            },
+                            {
+                                time: "Tarde (25 min)",
+                                desc: "Prepara presentación 5 min: hobby, trabajo, ciudad",
+                                prompt: ""
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Graba tu presentación y pide feedback",
+                                prompt: "I presented this topic [texto]. Give feedback on clarity, vocabulary, and grammar."
+                            }
+                        ]
+                    },
+                    {
+                        day: "VIERNES",
+                        theme: "Final Writing Challenge",
+                        vocabGoal: 10,
+                        activities: [
+                            {
+                                time: "Mañana (10 min)",
+                                desc: "Repasa notas de 4 semanas. Identifica tu mayor mejora",
+                                prompt: ""
+                            },
+                            {
+                                time: "Tarde (30 min)",
+                                desc: "Escribe 400 palabras: 'My Journey Learning English - 4 Weeks'",
+                                prompt: "Correct this comprehensive text. Compare it with my Week 1 writing. Show my improvement and remaining challenges."
+                            },
+                            {
+                                time: "Noche (20 min)",
+                                desc: "Lee feedback completo. Celebra tu progreso",
+                                prompt: ""
+                            }
+                        ]
+                    },
+                    {
+                        day: "SÁBADO",
+                        theme: "Final Evaluation",
+                        vocabGoal: 0,
+                        activities: [
+                            {
+                                time: "Flexible (60-90 min)",
+                                desc: "Test completo + conversación final de 20 min",
+                                prompt: "Give me a comprehensive English test covering: grammar (all tenses), vocabulary, reading comprehension, and conversation. A2-B1 level."
+                            },
+                            {
+                                time: "",
+                                desc: "Conversación de evaluación final",
+                                prompt: "Let's have a 20-minute natural conversation. Mix all topics from 4 weeks. Evaluate my improvement from Week 1. Give me a level assessment."
+                            }
+                        ]
+                    },
+                    {
+                        day: "DOMINGO",
+                        theme: "Celebration & Planning",
+                        vocabGoal: 0,
+                        activities: [
+                            {
+                                time: "Flexible (30-60 min)",
+                                desc: "Reflexión final. Ve película sin subs (desafío). Planea próximos 3 meses",
+                                prompt: "Based on my 4-week journey, create a personalized 3-month plan to reach B2 level. Include new strategies and resources."
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
 
-  <script>
-  /*****************************************************************
-   * Datos (base) del plan: puedes editar o ampliar fácilmente aquí
-   * He cargado las 4 semanas / días y prompts básicos (según tu plan).
-   *****************************************************************/
-  const weekData = {
-    1: { title: "SEMANA 1: FUNDAMENTOS Y RUTINA", subtitle:"Vida cotidiana / Present Simple", days:[
-        { name:"LUNES", activities:[
-          { time:"Mañana (10 min)", title:"20 frases esenciales - leer y grabar", prompt:"Give me 20 essential phrases for daily routines with pronunciation. Include: waking up, eating, working, and going to bed" },
-          { time:"Tarde (20 min)", title:"Video: 'A Day in My Life' - ver 2 veces; anotar 5 palabras", prompt:"Watch: 'A Day in My Life' (Easy English). Watch 2 times (with/without subtitles). Note 5 words and ask AI their use." },
-          { time:"Noche (20 min)", title:"Conversación: Mi rutina - escribir 7 oraciones", prompt:"Let's talk about my daily routine. Ask me questions and correct my mistakes. I'm A2-B1 level." }
-        ]},
-        { name:"MARTES", activities:[
-          { time:"Mañana (10 min)", title:"Repasa 20 frases y crea 3 oraciones" },
-          { time:"Tarde (20 min)", title:"Present Simple vs Present Continuous - ejercicios", prompt:"Teach me Present Simple vs Present Continuous with 5 exercises. A2-B1 level. Include answers." },
-          { time:"Noche (25 min)", title:"Lee artículo (News in Levels) y resume", prompt:"I read this article [paste text]. Ask me 5 comprehension questions and explain difficult words." }
-        ]},
-        { name:"MIÉRCOLES", activities:[
-          { time:"Mañana (10 min)", title:"Escucha '6 Minute English' (BBC) sin transcripción" },
-          { time:"Tarde (25 min)", title:"Con transcripción: marca palabras desconocidas", prompt:"Explain these words with example sentences: [your list]" },
-          { time:"Noche (20 min)", title:"Discute el podcast con IA", prompt:"Let's discuss what I heard in the podcast. The topic was [topic]. Ask me questions." }
-        ]},
-        { name:"JUEVES", activities:[
-          { time:"Mañana (15 min)", title:"10 preguntas comunes - practica respuestas", prompt:"Give me 10 common questions people ask when meeting someone. Then let's practice." },
-          { time:"Tarde (20 min)", title:"Shadowing - video 5 min; grabar" },
-          { time:"Noche (20 min)", title:"Roleplay: barista / pedir café", prompt:"Let's roleplay. You're a barista, I'm ordering coffee. Correct my English after we finish. Start!" }
-        ]},
-        { name:"VIERNES", activities:[
-          { time:"Mañana (10 min)", title:"Repaso semanal" },
-          { time:"Tarde (25 min)", title:"Escribe 150 palabras: 'My week in English'", prompt:"Correct this text. Explain mistakes and suggest better phrases: [your text]" },
-          { time:"Noche (20 min)", title:"Ejercicios según errores" , prompt:"Based on my text, give me 5 grammar exercises for my weak points" }
-        ]},
-        { name:"SÁBADO", activities:[
-          { time:"Flexible", title:"Flashcards con 70 palabras - ve serie 30 min" , prompt:"Quiz me on this week's vocabulary with fill-in-the-blank sentences" }
-        ]},
-        { name:"DOMINGO", activities:[
-          { time:"Flexible", title:"Inmersión libre (película/serie/juego/Reddit)", prompt:"Ask me 5 questions in English about my week. Then evaluate my progress and give me 3 tips for next week." }
-        ]}
-    ]},
-    2: { title: "SEMANA 2: PASADO Y EXPERIENCIAS", subtitle:"Past Simple / Storytelling", days:[
-      // Simplificado pero funcional — puedes editar
-      { name:"LUNES", activities:[ {time:"Mañana", title:"Past Simple: 15 verbos irregulares", prompt:"Teach me Past Simple with 15 common irregular verbs. Give me example sentences."} ]},
-      { name:"MARTES", activities:[ {time:"Mañana", title:"Story time: escribe 150 palabras", prompt:"I'll tell you a story about [event]. Stop me and correct mistakes as I write."} ]},
-      { name:"MIÉRCOLES", activities:[ {time:"Mañana", title:"Escucha entrevistas 5 min"} ]},
-      { name:"JUEVES", activities:[ {time:"Mañana", title:"Graba voice memo 2 min"} ]},
-      { name:"VIERNES", activities:[ {time:"Mañana", title:"Escribe mini-biografía 200 palabras", prompt:"Correct my biography. Make it sound more natural and suggest better connecting words."} ]},
-      { name:"SÁBADO", activities:[ {time:"Flexible", title:"Review: flashcards y podcast", prompt:"Create a story using these 20 words from this week: [list]. Then I'll try to retell it."} ]},
-      { name:"DOMINGO", activities:[ {time:"Flexible", title:"Media marathon", prompt:"This week I learned about past tenses. Test my knowledge with 10 questions mixing Present, Past, and Perfect."} ]}
-    ]},
-    3: { title: "SEMANA 3: FUTURO Y CONVERSACIÓN", subtitle:"Future tenses / Opinions", days:[
-      { name:"LUNES", activities:[ {time:"Mañana", title:"Will, going to, present continuous for future", prompt:"Teach me: will, going to, and present continuous for future. Give me 10 examples of each."} ]},
-      { name:"MARTES", activities:[ {time:"Mañana", title:"Phrases for opinions", prompt:"Give me 15 phrases for expressing opinions, agreeing, and disagreeing politely."} ]},
-      { name:"MIÉRCOLES", activities:[ {time:"Mañana", title:"Modals for predictions", prompt:"Teach me modal verbs for predictions: might, may, could, will probably. Give examples."} ]},
-      { name:"JUEVES", activities:[ {time:"Mañana", title:"Conversation starters", prompt:"Give me 10 conversation starters for small talk. Then let's practice each one."} ]},
-      { name:"VIERNES", activities:[ {time:"Tarde", title:"Opinion essay 250 words", prompt:"Correct my essay. Focus on: argument structure, opinion phrases, and grammar. Suggest improvements."} ]},
-      { name:"SÁBADO", activities:[ {time:"Flexible", title:"Conversation marathon", prompt:"Let's do 30-minute conversation practice. You pick 5 random topics."} ]},
-      { name:"DOMINGO", activities:[ {time:"Flexible", title:"Cultural content / documentary", prompt:"This week was about future and opinions. Have a conversation with me covering all tenses: past, present, future. Evaluate my progress."} ]}
-    ]},
-    4: { title: "SEMANA 4: INTEGRACIÓN Y FLUIDEZ", subtitle:"Real-world practice", days:[
-      { name:"LUNES", activities:[ {time:"Mañana", title:"Phrases for restaurant, directions, shopping", prompt:"Give me useful phrases for: ordering food, asking directions, making appointments, shopping."} ]},
-      { name:"MARTES", activities:[ {time:"Mañana", title:"Job interview prep", prompt:"Give me 15 common job interview questions in English."} ]},
-      { name:"MIÉRCOLES", activities:[ {time:"Mañana", title:"Phone conversations practice", prompt:"Teach me phone conversation phrases: answering, asking for someone, leaving messages, ending calls."} ]},
-      { name:"JUEVES", activities:[ {time:"Mañana", title:"Presentation skills - prepare 5-min talk", prompt:"Give me a presentation structure for introducing [topic]. Include useful phrases."} ]},
-      { name:"VIERNES", activities:[ {time:"Tarde", title:"Final writing challenge 400 words", prompt:"Correct this comprehensive text. Compare it with my Week 1 writing. Show my improvement and remaining challenges."} ]},
-      { name:"SÁBADO", activities:[ {time:"Flexible", title:"Final evaluation test", prompt:"Give me a comprehensive English test covering grammar, vocab, reading and conversation."} ]},
-      { name:"DOMINGO", activities:[ {time:"Flexible", title:"Celebration & planning future", prompt:"Based on my 4-week journey, create a personalized 3-month plan to reach B2 level."} ]}
-    ]}
-  };
+        let currentWeek = 1;
+        let progress = {
+            tasksCompleted: {},
+            vocabCount: 0,
+            weekVocab: {1: 0, 2: 0, 3: 0, 4: 0}
+        };
 
-  /*************************************************************
-   * Estado y persistencia
-   *************************************************************/
-  const STORAGE_KEY = 'plan-ingles-v2';
-  const STORAGE_NOTES = 'plan-ingles-v2-notes';
-  const STORAGE_VOCAB = 'plan-ingles-v2-vocab';
-  let state = {
-    week:1, dayIndex:0, checks: {}, notes:{}, vocab: []
-  };
+        function loadProgress() {
+            const saved = localStorage.getItem('englishPlanProgress');
+            if (saved) {
+                progress = JSON.parse(saved);
+            }
+        }
 
-  // cargar si hay guardado
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw) state = Object.assign(state, JSON.parse(raw));
-    const nRaw = localStorage.getItem(STORAGE_NOTES);
-    if(nRaw) state.notes = JSON.parse(nRaw);
-    const vRaw = localStorage.getItem(STORAGE_VOCAB);
-    if(vRaw) state.vocab = JSON.parse(vRaw);
-  } catch(e){ console.warn('No local data or JSON parse error', e) }
+        function saveProgress() {
+            localStorage.setItem('englishPlanProgress', JSON.stringify(progress));
+            updateStats();
+        }
 
-  /*************************************************************
-   * Helpers UI
-   *************************************************************/
-  const el = id => document.getElementById(id);
-  const toast = (t) => {
-    const box = el('toast'); box.textContent = t; box.classList.remove('hidden');
-    setTimeout(()=>box.classList.add('hidden'), 2000);
-  };
+        function updateStats() {
+            const totalTasks = Object.keys(progress.tasksCompleted).filter(k => progress.tasksCompleted[k]).length;
+            document.getElementById('tasksCompleted').textContent = totalTasks;
+            document.getElementById('vocabLearned').textContent = progress.vocabCount;
+            
+            const totalPossibleTasks = Object.values(weekData).reduce((sum, week) => {
+                return sum + week.days.reduce((daySum, day) => daySum + day.activities.length, 0);
+            }, 0);
+            
+            const percentage = Math.round((totalTasks / totalPossibleTasks) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressBar').textContent = percentage + '%';
+        }
 
-  function saveState(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({week: state.week, dayIndex: state.dayIndex, checks: state.checks}));
-    localStorage.setItem(STORAGE_NOTES, JSON.stringify(state.notes));
-    localStorage.setItem(STORAGE_VOCAB, JSON.stringify(state.vocab));
-    renderStats();
-  }
+        function renderWeekSelector() {
+            const selector = document.getElementById('weekSelector');
+            selector.innerHTML = '';
+            
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'week-btn' + (i === currentWeek ? ' active' : '');
+                btn.textContent = `Semana ${i}`;
+                btn.onclick = () => {
+                    currentWeek = i;
+                    renderWeekSelector();
+                    renderDays();
+                };
+                selector.appendChild(btn);
+            }
+        }
 
-  /*************************************************************
-   * Renderers
-   *************************************************************/
-  function renderWeeks(){
-    const container = document.getElementById('weekList');
-    container.innerHTML='';
-    Object.keys(weekData).forEach(k=>{
-      const w = weekData[k];
-      const btn = document.createElement('button');
-      btn.className = 'week-btn' + (Number(k) === state.week ? ' active' : '');
-      btn.textContent = `${k} — ${w.title}`;
-      btn.onclick = ()=>{ state.week = Number(k); state.dayIndex = 0; saveState(); renderAll(); };
-      container.appendChild(btn);
-    });
-  }
+        function renderDays() {
+            const daysList = document.getElementById('daysList');
+            daysList.innerHTML = '';
+            
+            const week = weekData[currentWeek];
+            const header = document.createElement('div');
+            header.style.marginBottom = '20px';
+            header.innerHTML = `
+                <h2 style="color: #667eea; font-size: 24px; margin-bottom: 5px;">
+                    Semana ${currentWeek}: ${week.title}
+                </h2>
+                <p style="color: #666; font-size: 14px;">${week.subtitle}</p>
+            `;
+            daysList.appendChild(header);
+            
+            week.days.forEach((day, dayIndex) => {
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `
+                    <div>
+                        <div class="day-title">${day.day}</div>
+                        <div style="color: #666; font-size: 14px; margin-top: 5px;">${day.theme}</div>
+                    </div>
+                    <div>
+                        <span class="day-badge">${day.vocabGoal > 0 ? day.vocabGoal + ' palabras' : 'Práctica'}</span>
+                        ${day.vocabGoal > 0 ? `<span class="vocab-count" id="vocab-w${currentWeek}d${dayIndex}">${progress.weekVocab[currentWeek] || 0}</span>` : ''}
+                    </div>
+                `;
+                dayCard.appendChild(dayHeader);
+                
+                day.activities.forEach((activity, actIndex) => {
+                    const activityDiv = document.createElement('div');
+                    activityDiv.className = 'activity';
+                    
+                    const taskId = `w${currentWeek}d${dayIndex}a${actIndex}`;
+                    const isCompleted = progress.tasksCompleted[taskId] || false;
+                    
+                    activityDiv.innerHTML = `
+                        <div class="activity-header">
+                            <div class="checkbox ${isCompleted ? 'checked' : ''}" onclick="toggleTask('${taskId}')"></div>
+                            <div class="activity-content">
+                                <div class="activity-time">${activity.time}</div>
+                                <div class="activity-desc">${activity.desc}</div>
+                                ${activity.prompt ? `
+                                    <div class="prompt-box">
+                                        <strong>💬 Prompt:</strong> "${activity.prompt}"
+                                        <button class="copy-btn" onclick="copyPrompt('${activity.prompt.replace(/'/g, "\\'")}')">
+                                            📋 Copiar
+                                        </button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    dayCard.appendChild(activityDiv);
+                });
+                
+                if (day.vocabGoal > 0) {
+                    const vocabInput = document.createElement('div');
+                    vocabInput.className = 'vocab-input';
+                    vocabInput.innerHTML = `
+                        <input type="number" min="0" placeholder="¿Cuántas palabras aprendiste hoy?" id="vocabInput-w${currentWeek}d${dayIndex}">
+                        <button class="add-vocab-btn" onclick="addVocab(${currentWeek}, ${dayIndex})">➕ Agregar</button>
+                    `;
+                    dayCard.appendChild(vocabInput);
+                }
+                
+                daysList.appendChild(dayCard);
+            });
+        }
 
-  function renderDays(){
-    const daysCont = document.getElementById('daysContainer');
-    daysCont.innerHTML='';
-    const days = weekData[state.week].days;
-    days.forEach((d,i)=>{
-      const pill = document.createElement('div');
-      pill.className = 'day-pill' + (i===state.dayIndex ? ' active' : '');
-      pill.textContent = d.name;
-      pill.onclick = ()=>{ state.dayIndex = i; saveState(); renderAll(); };
-      daysCont.appendChild(pill);
-    });
-  }
+        function toggleTask(taskId) {
+            progress.tasksCompleted[taskId] = !progress.tasksCompleted[taskId];
+            saveProgress();
+            renderDays();
+        }
 
-  function renderChecklist(){
-    const qc = document.getElementById('quickChecklist');
-    qc.innerHTML='';
-    const items = ["Mañana (10-15 min)","Tarde (20-30 min)","Noche (20-30 min)","Palabras nuevas anotadas","Notas de errores comunes"];
-    items.forEach((it, idx)=>{
-      const id = `q-${state.week}-${state.dayIndex}-${idx}`;
-      const row = document.createElement('div');
-      row.style.display='flex'; row.style.alignItems='center'; row.style.gap='8px'; row.style.marginTop='8px';
-      const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!state.checks[id];
-      cb.onchange = ()=>{ state.checks[id] = cb.checked; saveState(); renderStats(); renderActivities(); };
-      const lbl = document.createElement('label'); lbl.textContent = it;
-      row.appendChild(cb); row.appendChild(lbl);
-      qc.appendChild(row);
-    });
-  }
+        function addVocab(week, day) {
+            const input = document.getElementById(`vocabInput-w${week}d${day}`);
+            const count = parseInt(input.value) || 0;
+            
+            if (count > 0) {
+                progress.vocabCount += count;
+                progress.weekVocab[week] = (progress.weekVocab[week] || 0) + count;
+                saveProgress();
+                renderDays();
+                showToast(`✅ ${count} palabras agregadas!`);
+                input.value = '';
+            }
+        }
 
-  function renderActivities(filter=''){
-    const container = document.getElementById('activities');
-    container.innerHTML='';
-    const w = weekData[state.week];
-    const d = w.days[state.dayIndex];
-    if(!d) return;
-    // header
-    const header = document.createElement('div'); header.className='day-card';
-    header.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div>
-      <div style="font-weight:800;color:var(--accent)">${w.title}</div>
-      <div class="small">${w.subtitle} • ${d.name}</div>
-    </div>
-    <div style="text-align:right">
-      <div class="small">Día:</div>
-      <div style="font-weight:800">${d.name}</div>
-    </div></div>`;
-    container.appendChild(header);
+        function copyPrompt(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('📋 Prompt copiado! Pégalo en Claude o ChatGPT');
+            });
+        }
 
-    // activities
-    d.activities.forEach((a, idx)=>{
-      const text = `${a.time} ${a.title} ${a.prompt || ''}`.toLowerCase();
-      if(filter && !text.includes(filter.toLowerCase())) return;
-      const activity = document.createElement('div'); activity.className='activity';
-      // checkbox
-      const id = `t-${state.week}-${state.dayIndex}-${idx}`;
-      const cb = document.createElement('div'); cb.className='checkbox' + (state.checks[id] ? ' checked' : '');
-      cb.onclick = ()=>{
-        state.checks[id] = !state.checks[id];
-        saveState();
-        renderActivities(filter);
-      };
-      activity.appendChild(cb);
-      // content
-      const content = document.createElement('div'); content.className='activity-content';
-      const t0 = document.createElement('div'); t0.className='activity-time'; t0.textContent = a.time;
-      const t1 = document.createElement('div'); t1.style.fontWeight=700; t1.textContent = a.title;
-      content.appendChild(t0); content.appendChild(t1);
-      if(a.desc){ const dsc = document.createElement('div'); dsc.className='activity-desc'; dsc.textContent = a.desc; content.appendChild(dsc); }
-      if(a.prompt){
-        const p = document.createElement('div'); p.className='prompt'; p.textContent = a.prompt;
-        const row = document.createElement('div'); row.style.display='flex'; row.style.marginTop='8px'; row.style.gap='8px';
-        const cp = document.createElement('button'); cp.className='btn-ghost'; cp.textContent='Copiar prompt';
-        cp.onclick = ()=>{ navigator.clipboard?.writeText(a.prompt).then(()=>toast('Prompt copiado')); };
-        row.appendChild(cp);
-        p.appendChild(row);
-        content.appendChild(p);
-      }
-      // note quick save
-      const noteKey = `note-${state.week}-${state.dayIndex}-${idx}`;
-      const noteBtn = document.createElement('button'); noteBtn.className='btn-ghost'; noteBtn.style.marginLeft='8px'; noteBtn.textContent='Nota rápida';
-      noteBtn.onclick = ()=>{
-        const val = prompt('Nota rápida para esta actividad', state.notes[noteKey]||'');
-        if(val!==null){ state.notes[noteKey]=val; saveState(); toast('Nota guardada'); }
-      };
-      content.appendChild(noteBtn);
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
 
-      activity.appendChild(content);
-      container.appendChild(activity);
-    });
+        function resetProgress() {
+            if (confirm('¿Estás seguro de que quieres resetear todo tu progreso?')) {
+                progress = {
+                    tasksCompleted: {},
+                    vocabCount: 0,
+                    weekVocab: {1: 0, 2: 0, 3: 0, 4: 0}
+                };
+                saveProgress();
+                renderDays();
+                showToast('🔄 Progreso reseteado');
+            }
+        }
 
-    // if no activities shown:
-    if(container.querySelectorAll('.activity').length===0){
-      const n = document.createElement('div'); n.className='card'; n.style.marginTop='8px'; n.textContent = 'No hay actividades que coincidan con la búsqueda o este día aún no tiene actividades.';
-      container.appendChild(n);
-    }
-  }
+        function exportProgress() {
+            const report = `
+📊 MI PROGRESO EN INGLÉS - 4 SEMANAS
+======================================
 
-  function renderVocab(){
-    const list = document.getElementById('vocabList'); list.innerHTML='';
-    state.vocab.forEach((v,i)=>{
-      const chip = document.createElement('div'); chip.className='chip';
-      chip.textContent = v;
-      const x = document.createElement('button'); x.className='btn-ghost'; x.textContent='✕'; x.style.marginLeft='8px';
-      x.onclick = ()=>{ state.vocab.splice(i,1); saveState(); renderVocab(); };
-      chip.appendChild(x);
-      list.appendChild(chip);
-    });
-    el('vocabCount').textContent = state.vocab.length;
-  }
+✅ Tareas completadas: ${Object.keys(progress.tasksCompleted).filter(k => progress.tasksCompleted[k]).length}
+📚 Palabras aprendidas: ${progress.vocabCount}
 
-  function renderStats(){
-    // tasks completed for all checks true count
-    const totalChecks = Object.values(state.checks).filter(Boolean).length;
-    el('tasksCompleted').textContent = totalChecks;
-    // progress: percent of checks for current week
-    // compute total possible checks in current week: week days * activities per day + quick checklist (approx)
-    const w = weekData[state.week];
-    let possible = 0, done = 0;
-    w.days.forEach((d,di)=>{
-      possible += d.activities.length;
-      d.activities.forEach((a,ai)=>{
-        const id = `t-${state.week}-${di}-${ai}`;
-        if(state.checks[id]) done++;
-      });
-      // quick 5 checks
-      for(let i=0;i<5;i++){
-        possible += 1;
-        const qid = `q-${state.week}-${di}-${i}`;
-        if(state.checks[qid]) done++;
-      }
-    });
-    const percent = possible ? Math.round((done/possible)*100) : 0;
-    const fill = el('progressFill'); fill.style.width = percent + '%'; fill.textContent = percent + '%';
-  }
+Por semana:
+- Semana 1: ${progress.weekVocab[1] || 0} palabras
+- Semana 2: ${progress.weekVocab[2] || 0} palabras
+- Semana 3: ${progress.weekVocab[3] || 0} palabras
+- Semana 4: ${progress.weekVocab[4] || 0} palabras
 
-  /*************************************************************
-   * Actions: vocab, notes, export/import, reset
-   *************************************************************/
-  document.getElementById('addVocab').addEventListener('click', ()=>{
-    const v = document.getElementById('vocabInput').value.trim();
-    if(!v) return toast('Escribe una palabra');
-    state.vocab.push(v);
-    document.getElementById('vocabInput').value='';
-    saveState(); renderVocab(); toast('Palabra añadida');
-  });
-  document.getElementById('vocabInput').addEventListener('keypress', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); document.getElementById('addVocab').click(); } });
+Generado: ${new Date().toLocaleDateString('es-MX')}
 
-  document.getElementById('saveNote').addEventListener('click', ()=>{
-    const val = document.getElementById('noteText').value.trim();
-    const key = `note-day-${state.week}-${state.dayIndex}`;
-    if(!val) return toast('Nota vacía');
-    state.notes[key] = val;
-    saveState(); toast('Nota guardada');
-  });
-  document.getElementById('copyNote').addEventListener('click', ()=>{
-    const t = document.getElementById('noteText').value;
-    if(!t) return toast('Nada que copiar');
-    navigator.clipboard?.writeText(t).then(()=>toast('Texto copiado'));
-  });
+¡Sigue así! 🚀
+            `.trim();
+            
+            navigator.clipboard.writeText(report).then(() => {
+                showToast('📤 Reporte copiado al portapapeles!');
+            });
+        }
 
-  document.getElementById('exportBtn').addEventListener('click', ()=>{
-    const data = { meta: { exportedAt: new Date().toISOString() }, state: state };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = 'plan-ingles-progreso.json'; a.click();
-    URL.revokeObjectURL(url);
-    toast('Exportado');
-  });
-
-  document.getElementById('importBtn').addEventListener('click', ()=>{
-    const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='application/json';
-    fileInput.onchange = (e)=>{
-      const f = e.target.files[0]; if(!f) return;
-      const reader = new FileReader();
-      reader.onload = ev=>{
-        try{
-          const obj = JSON.parse(ev.target.result);
-          if(obj.state){ state = Object.assign(state, obj.state); saveState(); renderAll(); toast('Importado JSON'); }
-          else toast('JSON sin formato válido');
-        }catch(err){ toast('Error al leer JSON'); }
-      };
-      reader.readAsText(f);
-    };
-    fileInput.click();
-  });
-
-  document.getElementById('loadJson').addEventListener('click', ()=>{
-    const txt = document.getElementById('importArea').value.trim();
-    if(!txt) return toast('Pega JSON');
-    try{
-      const obj = JSON.parse(txt);
-      if(obj.state){ state = Object.assign(state, obj.state); saveState(); renderAll(); toast('Importado desde área'); }
-      else toast('JSON sin formato válido');
-    }catch(err){ toast('JSON inválido'); }
-  });
-
-  document.getElementById('resetBtn').addEventListener('click', ()=>{
-    if(!confirm('Resetear todo el progreso y vocab?')) return;
-    state = { week:1, dayIndex:0, checks:{}, notes:{}, vocab:[] };
-    saveState(); renderAll(); toast('Reseteado');
-  });
-
-  // search
-  document.getElementById('searchInput').addEventListener('input', (e)=>{ renderActivities(e.target.value) });
-
-  // open notes fill
-  document.getElementById('openNotes').addEventListener('click', ()=>{
-    const key = `note-day-${state.week}-${state.dayIndex}`;
-    document.getElementById('noteText').value = state.notes[key] || '';
-    toast('Nota cargada (si existe)');
-  });
-
-  // copy functionality for prompts uses navigator.clipboard inside renderActivities
-
-  /*************************************************************
-   * Inicialización
-   *************************************************************/
-  function renderAll(){
-    renderWeeks();
-    renderDays();
-    renderChecklist();
-    renderActivities();
-    renderVocab();
-    renderStats();
-    // load note for current day if exists
-    const noteKey = `note-day-${state.week}-${state.dayIndex}`;
-    document.getElementById('noteText').value = state.notes[noteKey] || '';
-  }
-
-  renderAll();
-
-  // autosave interval
-  setInterval(()=>saveState(), 5000);
-  </script>
+        loadProgress();
+        renderWeekSelector();
+        renderDays();
+    </script>
 </body>
 </html>
